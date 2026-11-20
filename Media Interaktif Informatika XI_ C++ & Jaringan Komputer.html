@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Media Interaktif Informatika XI: C++ & Jaringan Komputer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f2f6f4;--card:#fff;--ink:#14212b;--mute:#52656f;--line:#d3ddda;--a:#0f766e;--a2:#d9f0ec;--b:#b45309;--b2:#fdebd0;--ok:#15803d;--bad:#b91c1c;--code:#0f1c24;--ct:#d7e8ec;--ck:#f4b860;--cs:#7fd6c2;--cn:#9ab8ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e171c;--card:#16232a;--ink:#e6eef0;--mute:#9db1b9;--line:#2a3d46;--a:#4fd1c0;--a2:#173a38;--b:#f4b860;--b2:#3a2c14;--ok:#4ade80;--bad:#f87171;--code:#0a1217;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e171c;--card:#16232a;--ink:#e6eef0;--mute:#9db1b9;--line:#2a3d46;--a:#4fd1c0;--a2:#173a38;--b:#f4b860;--b2:#3a2c14;--ok:#4ade80;--bad:#f87171;--code:#0a1217;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 Lexend,system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:28px 20px 8px;max-width:980px;margin:auto}
+h1{font-size:clamp(1.6rem,4.5vw,2.5rem);line-height:1.2;margin:0 0 6px;font-weight:700}
+header p{margin:0;color:var(--mute);max-width:60ch}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-top:16px}
+nav div{max-width:980px;margin:auto;display:flex;gap:6px;overflow-x:auto;padding:8px 20px}
+nav button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:999px;font:inherit;font-size:.9rem;cursor:pointer}
+nav button[aria-selected=true]{background:var(--a);border-color:var(--a);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) nav button[aria-selected=true]{color:#07211f}}
+main{max-width:980px;margin:auto;padding:20px}
+section{display:none}section.on{display:block}
+h2{font-size:1.5rem;margin:0 0 4px}h3{font-size:1.1rem;margin:0 0 8px}
+.lead{color:var(--mute);margin:0 0 18px;max-width:65ch}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.go{text-align:left;cursor:pointer;font:inherit;color:inherit;width:100%}
+.go:hover{border-color:var(--a)}
+.go b{display:block;font-size:1.05rem}.go span{color:var(--mute);font-size:.9rem}
+pre,.code{background:var(--code);color:var(--ct);border-radius:10px;padding:14px 16px;font:14px/1.7 ui-monospace,Menlo,Consolas,monospace;overflow-x:auto;margin:0 0 12px}
+.code .k{color:var(--ck)}.code .s{color:var(--cs)}.code .c{color:#6f8a96}
+.hl{background:rgba(79,209,192,.22);display:block;margin:0 -16px;padding:0 16px}
+.out{background:var(--a2);border-left:4px solid var(--a);border-radius:8px;padding:10px 14px;font:15px ui-monospace,Menlo,Consolas,monospace;word-break:break-all;min-height:44px}
+label{font-size:.9rem;color:var(--mute);display:block;margin-bottom:2px}
+input[type=number],select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);width:100%}
+input[type=range]{width:100%;accent-color:var(--a)}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}.row>div{flex:1;min-width:110px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;font:14px ui-monospace,Menlo,monospace;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--a);border-color:var(--a);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip[aria-pressed=true]{color:#07211f}}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.res div{background:var(--a2);border-radius:8px;padding:8px 10px;font:14px ui-monospace,Menlo,monospace}.res small{display:block;color:var(--mute);font-family:Lexend,sans-serif}
+.cells{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.cell{width:56px;text-align:center;border:2px solid var(--a);border-radius:8px;background:var(--card);color:var(--ink);padding:4px 0;font:14px ui-monospace,monospace;cursor:pointer}
+.cell small{display:block;color:var(--mute);font-size:11px}.cell[aria-pressed=true]{background:var(--a);color:#fff}
+.step{display:flex;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;font:14px ui-monospace,monospace;background:var(--card)}
+.step em{font:italic 13px Lexend,sans-serif;color:var(--mute);margin-left:auto;text-align:right}
+.step.run{background:var(--a2);border-color:var(--a)}.step.skip{opacity:.5}.step.no{opacity:.8}
+svg.topo{width:100%;max-height:300px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.n{cursor:pointer}.n circle{fill:var(--a);stroke:var(--card);stroke-width:3}.n.hub circle{fill:var(--b)}.n.dead circle{fill:var(--bad)}
+.n text{fill:#fff;font:700 11px Lexend,sans-serif;text-anchor:middle;pointer-events:none}
+.lk{stroke:var(--mute);stroke-width:2.5}.lk.off{stroke:var(--bad);stroke-dasharray:4 5;opacity:.6}
+.pf{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.92rem;margin:10px 0 0}.pf dt{font-weight:700}.pf dd{margin:0}
+.note{background:var(--b2);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:.92rem}
+.osi{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.osi button{display:flex;gap:12px;width:100%;text-align:left;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font:inherit;color:inherit;cursor:pointer}
+.osi i{font-style:normal;font-weight:700;color:var(--a);min-width:1.4em}.osi b{min-width:110px}.osi span{color:var(--mute);font-size:.92rem}
+.osi.guess span{visibility:hidden}.osi.guess .show span{visibility:visible}
+.symbols{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.symbols svg{width:100%;height:56px}.symbols path,.symbols rect,.symbols ellipse,.symbols polygon{fill:var(--a2);stroke:var(--a);stroke-width:2}
+.symbols p{margin:4px 0 0;font-size:.88rem;color:var(--mute)}
+.qb{font-size:1.05rem;margin:0 0 12px}
+.opt{display:block;width:100%;text-align:left;margin-bottom:8px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;padding:10px 14px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--a)}.opt.ok{border-color:var(--ok);background:var(--a2)}.opt.bad{border-color:var(--bad)}
+.btn{background:var(--a);color:#fff;border:0;border-radius:10px;padding:10px 20px;font:inherit;font-weight:500;cursor:pointer}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#07211f}}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:14px}.bar i{display:block;height:100%;background:var(--a);width:0;transition:width .3s}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--b);outline-offset:2px}
+.two{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+input[type=text]{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);width:100%;margin-bottom:14px}
+#gate{display:none;min-height:100vh;place-items:center;padding:20px}
+body.locked #gate{display:grid}
+body.locked header,body.locked nav,body.locked main,body.locked footer{display:none}
+.gcard{width:100%;max-width:440px}
+.gcard h1{font-size:1.6rem}
+#who{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+footer{max-width:980px;margin:auto;padding:10px 20px 30px;color:var(--mute);font-size:.85rem}
+</style>
+</head>
+<body class="locked">
+<div id="gate"><div class="card gcard"><h1>Media Pembelajaran Interaktif</h1><p class="lead">Informatika kelas XI: C++ & Jaringan Komputer. Isi data dirimu untuk mulai belajar.</p><label for="nm">Nama lengkap</label><input id="nm" type="text" autocomplete="name" maxlength="60"><label>Kelas</label><div class="chips" id="kl"></div><p id="err" role="alert" style="color:var(--bad);min-height:1.5em;margin:0 0 8px"></p><button class="btn" id="masuk">Masuk</button></div></div>
+<header>
+<h1>Pemrograman C++ & Jaringan Komputer</h1>
+<p>Informatika kelas XI. Coba sendiri setiap konsep, lalu uji pemahamanmu dengan kuis persiapan PSAS Gasal.</p>
+<p id="who" style="margin-top:8px;font-size:.9rem;color:var(--ink)"></p>
+</header>
+<nav><div role="tablist" id="tabs"></div></nav>
+<main>
+
+<section id="beranda">
+<h2>Mau belajar apa hari ini?</h2>
+<p class="lead">Materi dibagi empat bagian. Urutan bebas, tetapi mulailah dari C++ dasar bila kamu baru belajar.</p>
+<div class="grid">
+<button class="card go" data-go="cpp"><b>A. Dasar C++</b><span>Struktur program, tipe data, array, operator, flowchart</span></button>
+<button class="card go" data-go="ctrl"><b>B. Struktur kontrol</b><span>if-else, else if, switch-case, perulangan for</span></button>
+<button class="card go" data-go="net"><b>C. Jaringan komputer</b><span>Perangkat, jenis jaringan, topologi</span></button>
+<button class="card go" data-go="osi"><b>D. Model OSI & IP</b><span>7 lapisan, alamat IP, MAC address</span></button>
+<button class="card go" data-go="kuis"><b>Kuis PSAS</b><span>16 soal latihan dengan pembahasan</span></button>
+</div>
+<div class="card" style="margin-top:14px"><h3>Tujuan pembelajaran</h3>
+<ul style="margin:0;padding-left:20px"><li>Menulis dan menelusuri program C++ sederhana</li><li>Memilih tipe data yang tepat</li><li>Membedakan topologi jaringan</li><li>Menjelaskan fungsi tiap lapisan OSI</li></ul></div>
+</section>
+
+<section id="cpp">
+<h2>A. Dasar pemrograman C++</h2>
+<p class="lead">Setiap program C++ dimulai dari fungsi <code>main()</code>.</p>
+<div class="two">
+<div class="card"><h3>Struktur program</h3>
+<pre class="code" id="struct"><span class="c">// klik bagian di bawah untuk melihat artinya</span>
+<span class="k">#include</span> &lt;iostream&gt;
+<span class="k">using namespace</span> std;
+<span class="k">int</span> main() {
+ <span class="k">int</span> a = 5, b = 7, c;
+ c = a * b;
+ cout &lt;&lt; c;
+ <span class="k">return</span> 0;
+}</pre>
+<div class="chips" id="sbtn"></div><div class="out" id="sout">Pilih salah satu tombol.</div></div>
+<div class="card"><h3>Tipe data dasar</h3>
+<div class="chips" id="tchips"></div><div class="out" id="tout">Pilih tipe data.</div></div>
+</div>
+<div class="two" style="margin-top:14px">
+<div class="card"><h3>Array dan indeks</h3>
+<pre class="code">int x[5] = {1,2,3,4,5};</pre>
+<div class="cells" id="cells"></div><div class="out" id="aout">Klik sebuah kotak. Indeks array dimulai dari 0.</div>
+<div class="note">Soal PSAS: array 5 elemen ditulis <code>int numbers[5];</code>. Konstanta: <code>#define phi 3.14</code>, dan luas lingkaran = phi * r * r.</div></div>
+<div class="card"><h3>Operator aritmatika</h3>
+<div class="row"><div><label for="a">a</label><input id="a" type="number" value="7"></div><div><label for="b">b</label><input id="b" type="number" value="2"></div></div>
+<div class="res" id="ops"></div>
+<div class="note">Membagi dengan nol (<code>4/0</code>) tidak valid. Operator <code>++</code> menambah 1, <code>--</code> mengurangi 1.</div></div>
+</div>
+<div class="card" style="margin-top:14px"><h3>Simbol flowchart</h3><div class="symbols" id="sym"></div></div>
+</section>
+
+<section id="ctrl">
+<h2>B. Struktur kontrol</h2>
+<p class="lead">Program memilih jalan berdasarkan kondisi. Ubah angkanya dan amati baris mana yang dijalankan.</p>
+<div class="two">
+<div class="card"><h3>if bertingkat: diskon buku</h3>
+<div class="row"><div><label for="jb">Jumlah buku</label><input id="jb" type="number" min="0" value="21"></div></div>
+<div id="ifsteps"></div><div class="out" id="ifout"></div>
+<div class="note">Kondisi diperiksa dari atas. Yang pertama benar dijalankan, sisanya dilewati.</div></div>
+<div class="card"><h3>switch-case</h3>
+<div class="row"><div><label for="sw">pilihan</label><select id="sw"><option>1</option><option>2</option><option>3</option><option>4</option></select></div></div>
+<pre class="code"><span class="k">switch</span> (pilihan) {
+ <span class="k">case</span> 1: cout &lt;&lt; <span class="s">"Satu"</span>; <span class="k">break</span>;
+ <span class="k">case</span> 2: cout &lt;&lt; <span class="s">"Dua"</span>; <span class="k">break</span>;
+ <span class="k">default</span>: cout &lt;&lt; <span class="s">"Tidak ada"</span>;
+}</pre><div class="out" id="swout"></div>
+<div class="note"><code>default</code> jalan bila tidak ada case yang cocok. <code>break</code> keluar dari switch.</div></div>
+</div>
+<div class="card" style="margin-top:14px"><h3>Perulangan for</h3>
+<div class="row"><div><label for="n">Batas: i &lt; <b id="nv">5</b></label><input id="n" type="range" min="1" max="12" value="5"></div></div>
+<pre class="code" id="forcode"></pre><div class="out" id="forout"></div>
+<div class="note">Mulai i=0, selama i&lt;batas, tambah 1 tiap putaran. Jadi i terakhir adalah batas dikurangi 1.</div></div>
+</section>
+
+<section id="net">
+<h2>C. Jaringan komputer</h2>
+<p class="lead">Klik sebuah komputer pada gambar untuk mematikannya, lalu lihat dampaknya pada jaringan.</p>
+<div class="chips" id="tp"></div>
+<svg class="topo" id="svg" viewBox="0 0 600 280" role="img" aria-label="Diagram topologi jaringan"></svg>
+<div class="out" id="tpmsg" style="margin-top:10px">Pilih topologi, lalu klik sebuah komputer.</div>
+<dl class="pf" id="tpinfo"></dl>
+<div class="card" style="margin-top:14px"><h3>Perangkat jaringan</h3><div class="grid" id="dev"></div>
+<div class="note">Peer to Peer: tiap komputer bisa jadi workstation sekaligus server. LAN: jaringan di area terbatas. Client-Server: ada server pusat yang melayani client.</div></div>
+</section>
+
+<section id="osi">
+<h2>D. Model OSI dan protokol IP</h2>
+<p class="lead">Klik lapisan untuk melihat fungsinya. Aktifkan mode tebak untuk berlatih menghafal.</p>
+<div class="row"><label style="display:flex;gap:8px;align-items:center;font-size:1rem;color:var(--ink)"><input type="checkbox" id="guess"> Mode tebak (fungsi disembunyikan)</label></div>
+<ol class="osi" id="osil"></ol>
+<div class="note">Pengingat urutan dari atas: Application, Presentation, Session, Transport, Network, Data Link, Physical.</div>
+<div class="two" style="margin-top:14px">
+<div class="card"><h3>Alamat IP (Layer 3)</h3><p style="margin:0">Identitas logis perangkat. Router memakai alamat IP untuk meneruskan paket antar jaringan.</p></div>
+<div class="card"><h3>MAC Address (Layer 2)</h3><p style="margin:0">Identitas fisik unik pada NIC, dipakai untuk mengenali pengirim dan penerima.</p></div></div>
+</section>
+
+<section id="kuis">
+<h2>Kuis persiapan PSAS</h2>
+<p class="lead">16 soal pilihan ganda. Urutan soal dan pilihan diacak tiap kali.</p>
+<div class="bar"><i id="qbar"></i></div>
+<div class="card" id="qbox"></div>
+</section>
+
+</main>
+<footer>Sumber: Materi 6 Pendalaman C++ & Jaringan Komputer, Informatika kelas XI.</footer>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const TABS=[["beranda","Beranda"],["cpp","A. Dasar C++"],["ctrl","B. Kontrol"],["net","C. Jaringan"],["osi","D. OSI & IP"],["kuis","Kuis"]];
+const tabs=$("#tabs");
+TABS.forEach(([id,t])=>{const b=document.createElement("button");b.textContent=t;b.dataset.t=id;b.setAttribute("role","tab");b.onclick=()=>show(id);tabs.append(b)});
+function show(id){$$("section").forEach(s=>s.classList.toggle("on",s.id===id));$$("#tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===id));window.scrollTo(0,0)}
+$$("[data-go]").forEach(b=>b.onclick=()=>show(b.dataset.go));
+function pick(box,items,fn){box.innerHTML="";items.forEach((t,i)=>{const b=document.createElement("button");b.className="chip";b.textContent=t;b.setAttribute("aria-pressed","false");b.onclick=()=>{[...box.children].forEach(c=>c.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");fn(i)};box.append(b)})}
+
+/* A. struktur */
+const S=[["#include","Memanggil pustaka (library), misalnya iostream atau stdio.h."],["int main()","Fungsi utama, titik awal eksekusi program."],["{ }","Blok pembuka dan penutup."],["cout << / cin >>","cout mencetak output; cin membaca input."],["Titik koma ;","Setiap pernyataan diakhiri titik koma. Hasil program ini: 35."]];
+pick($("#sbtn"),S.map(x=>x[0]),i=>$("#sout").textContent=S[i][1]);
+const T=[["int","Bilangan bulat positif dan negatif","int umur = 16;"],["float","Bilangan pecahan","float nilai = 8.5;"],["double","Bilangan pecahan dengan presisi lebih besar","double pi = 3.14159;"],["char","Satu karakter","char grade = 'A';"],["long","Bilangan bulat yang besar","long populasi;"],["unsigned int","Bilangan bulat positif saja (tanpa negatif)","unsigned int stok;"]];
+pick($("#tchips"),T.map(x=>x[0]),i=>$("#tout").innerHTML=T[i][1]+"<br><code></code>",$("#tout").dataset.x=1);
+pick($("#tchips"),T.map(x=>x[0]),i=>{const o=$("#tout");o.textContent=T[i][1]+". Contoh: "+T[i][2]});
+/* array */
+const cells=$("#cells");[1,2,3,4,5].forEach((v,i)=>{const b=document.createElement("button");b.className="cell";b.innerHTML=v+"<small>["+i+"]</small>";b.setAttribute("aria-pressed","false");b.onclick=()=>{$$(".cell").forEach(c=>c.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");$("#aout").textContent="x["+i+"] = "+v};cells.append(b)});
+/* operator */
+function ops(){const a=+$("#a").value,b=+$("#b").value;const f=v=>Number.isFinite(v)?+v.toFixed(4):"tidak valid";
+$("#ops").innerHTML=[["a + b",a+b],["a - b",a-b],["a * b",a*b],["a / b",b===0?NaN:a/b],["a % b",b===0?NaN:a%b],["a++ jadi",a+1],["a-- jadi",a-1]].map(([k,v])=>"<div><small>"+k+"</small>"+f(v)+"</div>").join("")}
+$("#a").oninput=$("#b").oninput=ops;ops();
+/* flowchart */
+const FC=[["<path d='M10 28h80M80 18l10 10-10 10' fill='none'/>","Garis alir: arah alur"],["<ellipse cx='50' cy='28' rx='40' ry='20'/>","Terminator: awal/akhir"],["<rect x='10' y='8' width='80' height='40'/>","Proses: perhitungan"],["<polygon points='50,4 92,28 50,52 8,28'/>","Keputusan: ya/tidak"],["<polygon points='24,8 94,8 76,48 6,48'/>","Input-Output: masukan & keluaran"]];
+$("#sym").innerHTML=FC.map(([s,t])=>"<div><svg viewBox='0 0 100 56' aria-hidden='true'>"+s+"</svg><p>"+t+"</p></div>").join("");
+
+/* B. kontrol */
+function ifc(){const n=+$("#jb").value||0;const R=[[">= 50","20%",.8],[">= 35","15%",.85],[">= 20","10%",.9]];let done=false,h="";
+R.forEach(([c,d,f],i)=>{const ok=!done&&n>=+c.slice(3);let cls=done?"skip":ok?"run":"no";const w=done?"dilewati":ok?"BENAR, dijalankan":"salah";if(ok){done=true;h+=""}
+h+="<div class='step "+cls+"'>"+(i?"else ":"")+"if (JB "+c+") diskon "+d+"<em>"+w+"</em></div>"});
+const cls=done?"skip":"run";h+="<div class='step "+cls+"'>else diskon 0%<em>"+(done?"dilewati":"dijalankan")+"</em></div>";
+const f=n>=50?.8:n>=35?.85:n>=20?.9:1;$("#ifsteps").innerHTML=h;$("#ifout").textContent="harga = "+n+" x "+f+" x 2500 = Rp"+Math.round(n*f*2500).toLocaleString("id-ID")}
+$("#jb").oninput=ifc;ifc();
+$("#sw").onchange=()=>{const v=$("#sw").value;$("#swout").textContent=v==1?"Satu":v==2?"Dua":"Tidak ada (default)"};$("#sw").onchange();
+function forc(){const n=+$("#n").value;$("#nv").textContent=n;$("#forcode").innerHTML="<span class='k'>for</span> (<span class='k'>int</span> i = 0; i &lt; "+n+"; i++) {\n cout &lt;&lt; i &lt;&lt; <span class='s'>\" \"</span>;\n}";$("#forout").textContent="Output: "+[...Array(n).keys()].join(" ")}
+$("#n").oninput=forc;forc();
+
+/* C. topologi */
+const C=(n,cx,cy,r,o=0)=>[...Array(n)].map((_,i)=>[cx+r*Math.cos(2*Math.PI*i/n+o),cy+r*Math.sin(2*Math.PI*i/n+o)]);
+function mk(type){let N=[],E=[],ln=(a,b)=>E.push([a,b]);
+if(type==="Star"){N=[[300,140,1],...C(6,300,140,105,-Math.PI/2).map(p=>p)];N[0]=[300,140,1];for(let i=1;i<=6;i++)ln(0,i)}
+else if(type==="Ring"){N=C(6,300,140,100,-Math.PI/2);N.forEach((_,i)=>ln(i,(i+1)%6))}
+else if(type==="Bus"){N=[[90,70],[210,70],[330,70],[450,70],[150,210],[270,210],[390,210]];ln(-1,-1);E.pop();N.forEach((p,i)=>E.push([i,"bus"+(i<4?70:210)]))}
+else if(type==="Mesh"){N=C(6,300,140,105,-Math.PI/2);for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)ln(i,j)}
+else if(type==="Tree"){N=[[300,40,1],[170,120,1],[430,120,1],[100,230],[240,230],[360,230],[500,230]];ln(0,1);ln(0,2);ln(1,3);ln(1,4);ln(2,5);ln(2,6)}
+else{N=[[110,140,1],[40,60],[40,220],[190,60],[330,40],[420,90],[420,180],[330,210],[130,260],[500,140]];[[0,1],[0,2],[0,3],[3,4],[4,5],[5,6],[6,7],[7,3],[0,8],[5,9]].forEach(e=>ln(...e))}
+return{N,E}}
+const MSG={Star:["Pusat (hub/switch) mati: semua komputer putus.","Satu client mati: komputer lain tetap berjalan."],Ring:["Satu titik putus dapat mengganggu seluruh jaringan.","Satu titik putus dapat mengganggu seluruh jaringan."],Bus:["Kabel utama putus: semua terganggu.","Satu komputer mati: lainnya tetap berjalan, tetapi data rawan bertabrakan."],Mesh:["Koneksi langsung ke semua: jalur lain tetap tersedia.","Jalur lain tetap tersedia. Kinerja terbaik."],Tree:["Hub tingkat atas mati: cabang di bawahnya terputus.","Satu client mati: lainnya tetap berjalan."],Hybrid:["Titik pusat mati: bagian star yang tergantung padanya terputus.","Satu komputer mati: sebagian besar jaringan tetap jalan."]};
+const INFO={Star:["Semua komputer terhubung ke satu pusat (hub/switch).","Stabil; satu client mati, lainnya tetap jalan.","Bergantung pusat; bila hub mati semua putus."],Ring:["Komputer terhubung melingkar.","Data mengalir searah dan teratur.","Satu titik putus dapat mengganggu jaringan."],Bus:["Komputer berurutan pada satu kabel utama.","Mudah digunakan, mudah dikembangkan, hemat kabel.","Rawan tabrakan data; kabel putus mengganggu semua."],Mesh:["Setiap komputer terhubung langsung ke setiap komputer lain.","Kinerja terbaik.","Paling sulit dibangun dan paling banyak kabel."],Tree:["Susunan bertingkat/hirarki dari beberapa star.","Mudah dikembangkan.","Bergantung pada hub tingkat atas."],Hybrid:["Kombinasi berbagai jenis topologi (mis. Star + Ring + Bus).","Fleksibel; penambahan koneksi sangat mudah.","Rancangan lebih kompleks."]};
+let cur="Star",dead=new Set();
+function draw(){const{N,E}=mk(cur);let h="";
+if(cur==="Bus"){h+="<line class='lk' x1='30' x2='570' y1='140' y2='140'/>";N.forEach(([x,y],i)=>{h+="<line class='lk"+(dead.has(i)?" off":"")+"' x1='"+x+"' x2='"+x+"' y1='"+y+"' y2='140'/>"})}
+else E.forEach(([a,b])=>{const off=dead.has(a)||dead.has(b);h+="<line class='lk"+(off?" off":"")+"' x1='"+N[a][0]+"' y1='"+N[a][1]+"' x2='"+N[b][0]+"' y2='"+N[b][1]+"'/>"});
+N.forEach(([x,y,hub],i)=>{h+="<g class='n"+(hub?" hub":"")+(dead.has(i)?" dead":"")+"' data-i='"+i+"' tabindex='0' role='button' aria-label='Komputer "+(i+1)+"'><circle cx='"+x+"' cy='"+y+"' r='17'/><text x='"+x+"' y='"+(y+4)+"'>"+(hub?"HUB":"PC"+(i+1))+"</text></g>"});
+$("#svg").innerHTML=h;
+$$(".n").forEach(g=>{const f=()=>{const i=+g.dataset.i;dead.has(i)?dead.delete(i):dead.add(i);$("#tpmsg").textContent=dead.has(i)?MSG[cur][N[i][2]?0:1]:"Komputer dihidupkan lagi.";draw()};g.onclick=f;g.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();f()}}});
+const I=INFO[cur];$("#tpinfo").innerHTML="<dt>Ciri</dt><dd>"+I[0]+"</dd><dt>Kelebihan</dt><dd>"+I[1]+"</dd><dt>Kekurangan</dt><dd>"+I[2]+"</dd>"}
+pick($("#tp"),Object.keys(INFO),i=>{cur=Object.keys(INFO)[i];dead.clear();$("#tpmsg").textContent="Klik sebuah komputer untuk mematikannya.";draw()});
+$("#tp").children[0].setAttribute("aria-pressed","true");draw();
+const DEV=[["Hub / Switch","Menghubungkan komputer dalam satu jaringan yang sama (mis. ruang lab)."],["Router","Menghubungkan dua jaringan berbeda, mis. jaringan lokal ke internet."],["Access Point","Memancarkan sinyal nirkabel (Wi-Fi)."],["Repeater","Menguatkan dan meneruskan sinyal agar jangkauan lebih jauh."],["Server","Komputer penyedia layanan/data."],["NIC & MAC Address","Kartu jaringan; MAC = alamat unik perangkat keras."]];
+$("#dev").innerHTML=DEV.map(([a,b])=>"<div class='card'><h3>"+a+"</h3><p style='margin:0;font-size:.92rem'>"+b+"</p></div>").join("");
+
+/* D. OSI */
+const O=[[7,"Application","Antarmuka pengguna-jaringan: email, web, transfer file."],[6,"Presentation","Menerjemahkan, mengenkripsi, mengkompresi data; format dan konversi karakter."],[5,"Session","Menyediakan, mengelola, dan mengakhiri sesi antar aplikasi."],[4,"Transport","Pengiriman end-to-end antar host; kontrol aliran dan deteksi kesalahan."],[3,"Network","Pengiriman paket antar node; routing."],[2,"Data Link","Transfer antar perangkat terhubung langsung; deteksi dan koreksi kesalahan."],[1,"Physical","Spesifikasi fisik media: tegangan, kecepatan data, konektor."]];
+$("#osil").innerHTML=O.map(([n,a,b])=>"<li><button><i>"+n+"</i><b>"+a+"</b><span>"+b+"</span></button></li>").join("");
+$$("#osil button").forEach(b=>b.onclick=()=>b.classList.toggle("show"));
+$("#osil").onclick=e=>{const b=e.target.closest("button");if(b)b.parentElement.classList.toggle("show")};
+$$("#osil button").forEach(b=>b.onclick=null);
+$("#guess").onchange=e=>{$("#osil").classList.toggle("guess",e.target.checked);$$("#osil li").forEach(l=>l.classList.remove("show"))};
+
+/* Kuis */
+const Q=[["Hasil dari int z = 7 % 2 adalah ...",["1","0","3","3,5"],0,"% adalah modulus (sisa bagi): 7 dibagi 2 sisa 1."],["Tipe data untuk karakter tunggal adalah ...",["char","int","float","long"],0,"char menyimpan satu karakter, mis. 'A'."],["Output dari for(i=0;i<5;i++) cout<<i; adalah ...",["01234","12345","0123","543210"],0,"i mulai 0 dan berhenti sebelum 5."],["B=30. Pada if(B<18) ... else \"Good evening\", outputnya ...",["Good evening","Good day.","Tidak ada","Error"],0,"30 < 18 salah, maka else dijalankan."],["Pernyataan untuk nilai di luar semua case pada switch adalah ...",["default","break","else","continue"],0,"default dijalankan bila tidak ada case yang cocok."],["Fungsi operator A++ adalah ...",["Menambah nilai 1","Mengurangi nilai 1","Mengalikan 2","Membagi 2"],0,"++ adalah increment."],["Perintah yang tepat untuk membuat array 5 elemen bertipe int ...",["int numbers[5];","int numbers(5);","array numbers[5];","int[5] numbers;"],0,"Format: tipe nama[jumlah];"],["Membeli 21 buku. Diskon yang diperoleh ...",["10%","15%","20%","0%"],0,"21 >= 50 tidak, >= 35 tidak, >= 20 ya: diskon 10%."],["Alat penghubung LAN ke internet adalah ...",["Router","Hub","Repeater","Access Point"],0,"Router menghubungkan dua jaringan berbeda."],["Setiap komputer dapat menjadi server sekaligus workstation pada ...",["Peer to Peer","Client-Server","Topologi Star","Mesh saja"],0,"Peer to Peer tidak memakai server khusus."],["Alamat unik perangkat keras pada NIC disebut ...",["MAC Address","IP Address","Domain","Gateway"],0,"MAC = identitas fisik (Layer 2)."],["Lapisan OSI yang mengurus routing ...",["Network","Transport","Session","Data Link"],0,"Network (Layer 3) mengirim paket antar node dan melakukan routing."],["Lapisan OSI yang mengenkripsi dan mengkompresi data ...",["Presentation","Application","Physical","Session"],0,"Presentation (Layer 6)."],["Fungsi protokol IP adalah ...",["Memberi alamat unik tiap perangkat","Menguatkan sinyal","Mengubah data menjadi listrik","Menyimpan situs web"],0,"IP memberi alamat unik pada tiap perangkat dalam jaringan."],["Topologi paling rentan karena bergantung pada satu titik pusat ...",["Star","Mesh","Bus","Hybrid"],0,"Bila hub/switch mati, semua putus."],["Topologi paling sulit diimplementasikan dan paling banyak kabel ...",["Mesh","Star","Ring","Tree"],0,"Setiap komputer terhubung langsung ke semua komputer lain."]];
+let order,qi,score;
+const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function start(){order=sh(Q.map((_,i)=>i));qi=0;score=0;ask()}
+function ask(){const box=$("#qbox");$("#qbar").style.width=(qi/Q.length*100)+"%";
+if(qi>=Q.length){const p=Math.round(score/Q.length*100);box.innerHTML="<h3>Selesai, "+USER.nama+" (kelas "+USER.kelas+"). Skormu "+score+" dari "+Q.length+" ("+p+")</h3><p>"+(p>=80?"Bagus. Kamu siap menghadapi PSAS.":p>=60?"Cukup baik. Ulangi bagian yang masih salah.":"Pelajari lagi materinya di tab A sampai D, lalu coba kembali.")+"</p><button class='btn' id='rs'>Ulangi kuis</button>";$("#rs").onclick=start;return}
+const q=Q[order[qi]];const ops=sh(q[1].map((t,i)=>[t,i===q[2]]));
+box.innerHTML="<small style='color:var(--mute)'>Soal "+(qi+1)+" dari "+Q.length+"</small><p class='qb'>"+q[0]+"</p><div id='qops'></div><div id='fb'></div>";
+ops.forEach(([t,ok])=>{const b=document.createElement("button");b.className="opt";b.textContent=t;b.onclick=()=>{$$(".opt").forEach(x=>x.disabled=true);$$(".opt").forEach((x,i)=>{if(ops[i][1])x.classList.add("ok")});if(ok)score++;else b.classList.add("bad");
+$("#fb").innerHTML="<div class='note'><b>"+(ok?"Benar. ":"Belum tepat. ")+"</b>"+q[3]+"</div><p><button class='btn' id='nx'>"+(qi===Q.length-1?"Lihat skor":"Soal berikutnya")+"</button></p>";$("#nx").onclick=()=>{qi++;ask()}};$("#qops").append(b)})}
+start();
+show("beranda");
+var USER={nama:"",kelas:""};
+(function(){let kl="";const k=$("#kl");
+["XI-8","XI-9"].forEach(c=>{const b=document.createElement("button");b.className="chip";b.textContent=c;b.setAttribute("aria-pressed","false");b.onclick=()=>{kl=c;[...k.children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));$("#err").textContent=""};k.append(b)});
+function enter(){const n=$("#nm").value.trim().replace(/\s+/g," ");
+if(n.length<3){$("#err").textContent="Tulis nama lengkap minimal 3 huruf.";$("#nm").focus();return}
+if(!kl){$("#err").textContent="Pilih kelas XI-8 atau XI-9.";return}
+USER={nama:n,kelas:kl};document.body.classList.remove("locked");
+const w=$("#who");w.innerHTML="";const s=document.createElement("span");s.textContent=n+", kelas "+kl;
+const b=document.createElement("button");b.className="chip";b.textContent="Ganti data";b.onclick=()=>{document.body.classList.add("locked");$("#nm").focus()};
+w.append(s,b);show("beranda");start()}
+$("#masuk").onclick=enter;$("#nm").onkeydown=e=>{if(e.key==="Enter")enter()};
+})();
+</script>
+</body>
+</html>
